@@ -1,0 +1,82 @@
+{
+  "success": true,
+  "count": 3,
+  "data": [
+    {
+      "id": 6,
+      "bannerName": "new banner 2",
+      "bannerType": "Homepage_Slider",
+      "offerType": null,
+      "discountPercent": null,
+      "imageUrl": "uploads/banners/hero-chatgpt-jhumkas.webp",
+      "mobileImageUrl": "uploads/banners/hero-chatgpt-jhumkas.webp",
+      "linkUrl": "",
+      "linkText": "",
+      "categoryId": null,
+      "categoryIds": [
+        8
+      ],
+      "subCategoryIds": [
+        9
+      ],
+      "productIds": [
+        14,
+        13,
+        29,
+        9
+      ],
+      "displayOrder": 0,
+      "startDate": "2026-08-08T00:00:00.000Z",
+      "endDate": "2028-01-08T00:00:00.000Z",
+      "isActive": true,
+      "createdAt": "2026-08-08T06:00:03.000Z",
+      "updatedAt": "2026-09-04T05:58:41.000Z"
+    },
+    {
+      "id": 5,
+      "bannerName": "new banner 1",
+      "bannerType": "Homepage_Slider",
+      "offerType": null,
+      "discountPercent": null,
+      "imageUrl": "uploads/banners/hero-chatgpt-solitaire.webp",
+      "mobileImageUrl": "uploads/banners/hero-chatgpt-solitaire.webp",
+      "linkUrl": "",
+      "linkText": "",
+      "categoryId": null,
+      "categoryIds": null,
+      "subCategoryIds": null,
+      "productIds": [
+        12
+      ],
+      "displayOrder": 0,
+      "startDate": "2026-08-08T00:00:00.000Z",
+      "endDate": "2027-12-27T00:00:00.000Z",
+      "isActive": true,
+      "createdAt": "2026-08-08T05:59:15.000Z",
+      "updatedAt": "2026-09-04T06:02:20.000Z"
+    },
+    {
+      "id": 4,
+      "bannerName": "new banner",
+      "bannerType": "Homepage_Slider",
+      "offerType": null,
+      "discountPercent": "20.00",
+      "imageUrl": "uploads/banners/hero-chatgpt-necklaces.webp",
+      "mobileImageUrl": "uploads/banners/hero-chatgpt-necklaces.webp",
+      "linkUrl": "",
+      "linkText": "",
+      "categoryId": null,
+      "categoryIds": null,
+      "subCategoryIds": null,
+      "productIds": [
+        24
+      ],
+      "displayOrder": 0,
+      "startDate": "2026-08-08T00:00:00.000Z",
+      "endDate": "2028-01-30T00:00:00.000Z",
+      "isActive": true,
+      "createdAt": "2026-08-08T05:55:25.000Z",
+      "updatedAt": "2026-09-04T06:14:42.000Z"
+    }
+  ]
+}

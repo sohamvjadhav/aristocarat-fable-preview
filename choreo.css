@@ -1,0 +1,260 @@
+/* ==========================================================================
+   choreo.css — scroll-choreography helper
+   --------------------------------------------------------------------------
+   The JS driver adds `ch-on` (then `ch-loaded`) to <html>, toggles `is-in` on
+   activated elements, splits headings into `.ch-w > .ch-wi` word spans with an
+   inline `--i`, and sets inline `--stage`, `--ch-py` and `--ch-p`.
+
+   Only transform, opacity and clip-path are animated.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  --ch-ease: cubic-bezier(.22, 1, .36, 1);
+  --ch-d1: .5s;
+  --ch-d2: .9s;
+  --ch-d3: 1.4s;
+  --ch-step: 80ms;
+}
+
+/* --------------------------------------------------------------------------
+   2. Always-on primitives (no motion here)
+   -------------------------------------------------------------------------- */
+
+/* Word spans produced by the heading splitter. The wrapper clips the inner
+   span so it can slide up from below its own line box. */
+.ch-w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: .1em;
+  margin-bottom: -.1em;
+}
+
+.ch-wi {
+  display: inline-block;
+}
+
+/* Fixed scroll-progress bar; width driven by the inline `--ch-p` (0..1). */
+.ch-progress {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  z-index: 9999;
+  pointer-events: none;
+  background: #b8904f;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--ch-p, 0));
+}
+
+/* Hairline rule that wipes in with `--ch-p` (defaults to fully drawn). */
+.ch-rule {
+  display: block;
+  height: 1px;
+  background: currentColor;
+  opacity: .5;
+  transform-origin: left center;
+  transform: scaleX(var(--ch-p, 1));
+}
+
+/* Animated underline: a 1px gradient painted from the left on hover/focus. */
+.ch-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size .6s var(--ch-ease);
+}
+
+.ch-link:hover,
+.ch-link:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Motion — only when the visitor has not asked for reduced motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* ------------------------------------------------------------------------
+     3a. Split words
+     Each word starts pushed down and slightly rotated, then rises into place
+     with a per-word stagger (`--i`) plus an optional group offset (`--ch-base`).
+     ---------------------------------------------------------------------- */
+  html.ch-on [data-split] .ch-wi {
+    transform: translate3d(0, 110%, 0) rotate(3deg);
+    transform-origin: 0 100%;
+    transition: transform var(--ch-d3) var(--ch-ease);
+    transition-delay: calc(var(--i, 0) * 55ms + var(--ch-base, 0ms));
+  }
+
+  /* Reveal when the split element itself, or its chapter, is activated. */
+  html.ch-on [data-split].is-in .ch-wi,
+  html.ch-on [data-chapter].is-in [data-split] .ch-wi {
+    transform: none;
+  }
+
+  /* Chapter-scoped splits start a touch later so they follow the chapter in. */
+  [data-chapter] [data-split] {
+    --ch-base: 140ms;
+  }
+
+  /* ------------------------------------------------------------------------
+     3b. Stages
+     Children of a chapter marked `data-stage` rise in sequence using the
+     per-element `--stage` index. The independent `translate` property is used
+     so hover `transform`s on the same element keep composing.
+     ---------------------------------------------------------------------- */
+  html.ch-on [data-chapter] [data-stage] {
+    opacity: 0;
+    translate: 0 24px;
+    transition:
+      opacity var(--ch-d2) var(--ch-ease),
+      translate var(--ch-d2) var(--ch-ease);
+    transition-delay: calc(var(--stage, 0) * var(--ch-step) + 200ms);
+  }
+
+  html.ch-on [data-chapter].is-in [data-stage] {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  /* Standalone stages (outside a chapter) reveal on their own is-in. */
+  html.ch-on [data-stage].is-in {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  /* ------------------------------------------------------------------------
+     3c. Unveil
+     Media frames open up via clip-path while the inner image settles back
+     from a slightly larger scale. The zoom uses the independent `scale`
+     property so it composes with Tailwind hover transforms (transform-based
+     hover zooms keep working).
+     ---------------------------------------------------------------------- */
+  html.ch-on [data-unveil] {
+    clip-path: inset(10% 8% 10% 8%);
+    transition: clip-path 1.6s var(--ch-ease);
+  }
+
+  /* `data-unveil="left"` wipes in from the left edge instead. */
+  html.ch-on [data-unveil="left"] {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  html.ch-on [data-unveil] > img,
+  html.ch-on img[data-unveil] {
+    scale: 1.16;
+    transition: scale 2s var(--ch-ease);
+  }
+
+  /* Reveal when the element itself, or its chapter, is activated.
+     The end state is a NEGATIVE inset on purpose: inset(0) would also clip the
+     element's outer box-shadow away (the big card/plate shadows on these frames).
+     A generous negative box clips nothing visible while still animating cleanly. */
+  html.ch-on [data-unveil].is-in,
+  html.ch-on [data-chapter].is-in [data-unveil] {
+    clip-path: inset(-140px -140px -140px -140px);
+  }
+
+  html.ch-on [data-unveil].is-in > img,
+  html.ch-on [data-chapter].is-in [data-unveil] > img,
+  html.ch-on img[data-unveil].is-in,
+  html.ch-on [data-chapter].is-in img[data-unveil] {
+    scale: 1;
+  }
+
+  /* ------------------------------------------------------------------------
+     3d. Parallax
+     Vertical offset supplied live by the driver as `--ch-py`. The independent
+     `translate` property keeps Tailwind hover transforms on the same element
+     fully working.
+     ---------------------------------------------------------------------- */
+  html.ch-on [data-parallax] {
+    translate: 0 var(--ch-py, 0px);
+    will-change: translate;
+  }
+
+  /* ------------------------------------------------------------------------
+     3e. Page load — header
+     Deliberately NOT animated.
+     The header is `position: sticky` with `backdrop-filter: blur()` and a bottom
+     border-radius, and it hosts the sticky category nav row. Applying a transform
+     to that combination displaced the nav row, so the load orchestration starts at
+     the hero instead (plate clip-path + staged copy). Nothing is allowed to move the
+     header off-screen or depend on a JS class to bring it back.
+     ---------------------------------------------------------------------- */
+
+  /* ------------------------------------------------------------------------
+     3f. Page load — hero plate
+     The frame clips in from rounded insets; no transform is set on the image.
+     ---------------------------------------------------------------------- */
+  html.ch-on [data-hero-plate] {
+    clip-path: inset(6% 6% 6% 6% round 32px);
+    transition: clip-path 1.8s var(--ch-ease) .15s;
+  }
+
+  /* Negative end inset keeps the plate's large outer shadows intact. */
+  html.ch-loaded [data-hero-plate] {
+    clip-path: inset(-160px -160px -160px -160px);
+  }
+
+  /* ------------------------------------------------------------------------
+     3g. Page load — hero copy
+     The copy block is vertically centred with `transform: translateY(-50%)`
+     by another stylesheet, so rather than fight that transform the entrance
+     is applied to its direct children. Each child gets a staggered delay from
+     its `--stage` value (set by the nth-child rules below).
+     ---------------------------------------------------------------------- */
+  html.ch-on [data-hero-copy] > * {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+    transition:
+      opacity 1.2s var(--ch-ease),
+      transform 1.2s var(--ch-ease);
+    transition-delay: calc(.5s + var(--stage, 0) * 90ms);
+  }
+
+  html.ch-loaded [data-hero-copy] > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Stagger indices for the first eight hero-copy children. */
+  html.ch-on [data-hero-copy] > :nth-child(1) { --stage: 1; }
+  html.ch-on [data-hero-copy] > :nth-child(2) { --stage: 2; }
+  html.ch-on [data-hero-copy] > :nth-child(3) { --stage: 3; }
+  html.ch-on [data-hero-copy] > :nth-child(4) { --stage: 4; }
+  html.ch-on [data-hero-copy] > :nth-child(5) { --stage: 5; }
+  html.ch-on [data-hero-copy] > :nth-child(6) { --stage: 6; }
+  html.ch-on [data-hero-copy] > :nth-child(7) { --stage: 7; }
+  html.ch-on [data-hero-copy] > :nth-child(8) { --stage: 8; }
+}
+
+/* --------------------------------------------------------------------------
+   4. Reduced motion — keep the static affordances, drop the animation
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ch-progress {
+    display: none;
+  }
+
+  .ch-link {
+    transition: none;
+  }
+
+  /* Belt and braces: if any rule above is ever reached under reduced motion,
+     force every animated state to its final, visible form. */
+  html.ch-on :is([data-split] .ch-wi, [data-stage], [data-unveil], img[data-unveil], [data-hero-copy] > *, [data-hero-plate], header) {
+    opacity: 1 !important;
+    transform: none !important;
+    scale: 1 !important;
+    translate: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+}

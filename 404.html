@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FXBJS95Q3F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-FXBJS95Q3F');
+  </script>
+  
+  <!-- SEO_TAGS -->
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/images/favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: #FFFFFF;
+      color: #1F2937;
+      overflow-x: hidden;
+    }
+
+    .heading-font {
+      font-family: 'Cormorant Garamond', 'Manrope', serif;
+    }
+
+    .sans-font {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Premium Glossy Button Shimmer */
+    .btn-shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-shimmer::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(to right,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent);
+      transform: skewX(-25deg);
+      transition: 0.75s;
+    }
+
+    .btn-shimmer:hover::after {
+      left: 150%;
+    }
+
+    /* Hover Card Lift */
+    .card-premium {
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .card-premium:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Reveal animation on scroll utility */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Glowing effect for specific items */
+    .glow-primary:hover {
+      box-shadow: 0 0 20px rgba(74, 14, 27, 0.4);
+    }
+
+    /* CaratLane Inspired "Postage Stamp" Decorative Edge */
+    .postage-stamp-container {
+      position: relative;
+      background: white;
+      padding: 20px;
+      /* Space for the "punched" holes */
+    }
+
+    .postage-stamp-container::after {
+      content: "";
+      position: absolute;
+      inset: -12px;
+      background-image:
+        radial-gradient(circle at 12px 12px, #171008 12px, transparent 13px),
+        radial-gradient(circle at calc(100% - 12px) 12px, #171008 12px, transparent 13px),
+        radial-gradient(circle at 12px calc(100% - 12px), #171008 12px, transparent 13px),
+        radial-gradient(circle at calc(100% - 12px) calc(100% - 12px), #171008 12px, transparent 13px);
+      background-repeat: no-repeat;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .badge-premium {
+      background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+      color: #331A00;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Category-tab switch on the New Arrivals / Best Sellers showcase rows */
+    @keyframes showcaseFadeIn {
+      0% { opacity: 0; transform: translateY(12px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .showcase-fade-in {
+      animation: showcaseFadeIn 450ms ease-out;
+    }
+
+    /* On mid-size "laptop" widths (1024–1600px logical px — very common at 1366x768 /
+       1440x900 at 100% scaling, and also at 1536px logical, which is what a common
+       1920x1080 laptop display reports at 125% OS display scaling) the desktop header
+       logo block is absolutely positioned to span the full header height (search row +
+       category row) and vertically centers its image + tagline. Nudge it slightly
+       smaller/left in that range so the logo + visible tagline both fit without
+       colliding with the category row underneath. */
+    @media (min-width: 1024px) and (max-width: 1600px) {
+      .header-logo-wrap {
+        left: calc(2rem + 5px) !important;
+      }
+
+      .header-logo {
+        max-height: 5.5rem !important;
+      }
+    }
+
+    @keyframes pulse-gentle {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.8;
+      }
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #E5E7EB;
+      border-radius: 10px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #2a1b0e;
+    }
+
+    .animate-pulse-gentle {
+      animation: pulse-gentle 3s infinite ease-in-out;
+    }
+
+  </style>
+
+  <link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="/choreo.css">
+  <link rel="stylesheet" href="/maison.css">
+
+  <!-- Bulky Scripts & Configs moved lower -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: 'var(--primary, #2a1b0e)',
+            darkPurple: 'var(--dark-purple, #171008)',
+            lightPurple: 'var(--light-purple, #fbf8f2)',
+            softLavender: 'var(--soft-lavender, #f6f3ee)',
+            accentOrange: 'var(--accent-orange, #c9ac7e)',
+            bgMain: 'var(--bg-main, #FAFAFA)',
+            goldHighlight: 'var(--gold-highlight, #efdcb6)',
+            success: 'var(--success, #10B981)',
+            error: 'var(--error, #EF4444)',
+            bgGray: 'var(--bg-gray, #F9F9F9)',
+            bgDeepBlack: 'var(--bg-deep-black, #171008)',
+            lavenderScrap: 'var(--lavender-scrap, #f6f3ee)',
+            goldMetallic: 'var(--gold-metallic, #c9ac7e)',
+            loginPurple: 'var(--login-purple, #2a1b0e)',
+            loginPurpleDark: 'var(--login-purple-dark, #171008)',
+            bgLoginStart: '#fbf8f2',
+            bgLoginEnd: '#FCF8F2',
+          },
+          fontFamily: {
+            sans: ['Manrope', 'sans-serif'],
+            heading: ['"Playfair Display"', 'serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+          animation: {
+            'shimmer': 'shimmer 2.5s infinite linear',
+            'float': 'float 3s ease-in-out infinite',
+            'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+            'scale-up': 'scaleUp 0.3s ease-out forwards',
+            'pulse-soft': 'pulseSoft 2s infinite ease-in-out',
+          },
+          keyframes: {
+            shimmer: {
+              '0%': { transform: 'translateX(-100%)' },
+              '100%': { transform: 'translateX(100%)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            scaleUp: {
+              '0%': { transform: 'scale(0.95)', opacity: '0' },
+              '100%': { transform: 'scale(1)', opacity: '1' },
+            },
+            pulseSoft: {
+              '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+              '50%': { transform: 'scale(1.05)', opacity: '0.8' },
+            },
+          }
+        },
+      },
+    }
+  </script>
+
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
+  <script type="module" crossorigin src="/assets/index-Di-T0pnU.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+
+</html>

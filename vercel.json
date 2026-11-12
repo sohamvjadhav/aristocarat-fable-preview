@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/apiup/admin/public/:path*", "destination": "https://api.aristocarat.com/admin/public/:path*" },
+    { "source": "/apiup/user/banners/:path*", "destination": "https://api.aristocarat.com/user/banners/:path*" },
+    { "source": "/apiup/user/coupons", "destination": "https://api.aristocarat.com/user/coupons" },
+    { "source": "/apiup/user/reviews/:path*", "destination": "https://api.aristocarat.com/user/reviews/:path*" },
+    { "source": "/apiup/uploads/:path*", "destination": "https://api.aristocarat.com/uploads/:path*" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
